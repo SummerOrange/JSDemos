@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>递归</title>
+    <style>
+    .block{
+        padding: 10px;
+    }
+    </style>
+    <script>
+        window.onload = function(){
+            var bg = ['pink','#fff'];
+            var $block = document.getElementsByClassName('block');
+            for(var i=0;i<$block.length;i++){
+                $block[i].style.background = i%2==0?bg[0]:bg[1];
+            }
+
+            var baoliyuMult = (function (){
+                'use strict'
+                return baoliyuFun();
+            })();
+        }
+        
+        var baoliyuFun = function baoliyu(depth){
+            console.log('抱着');
+            document.getElementById('liyuResult').innerHTML += '\n抱着';
+            if(!depth){
+                console.log('我的小鲤鱼');
+                document.getElementById('liyuResult').innerHTML += '\n我的小鲤鱼';
+            }else{
+                baoliyu(--depth);
+            }
+            console.log('啦');
+            document.getElementById('liyuResult').innerHTML += '\n啦';
+        }
+
+        function baoliyuCallee(depth){
+            console.log('抱着');
+            document.getElementById('liyuResultCallee').innerHTML += '\n抱着';
+            if(!depth){
+                console.log('我的小鲤鱼');
+                document.getElementById('liyuResultCallee').innerHTML += '\n我的小鲤鱼';
+            }else{
+                arguments.callee(--depth);
+            }
+            console.log('啦');
+            document.getElementById('liyuResultCallee').innerHTML += '\n啦';
+        }
+
+        
+
+
+        var sum=(function(){
+    'use strict'
+    return  function fun(num){
+        if(num<=1){
+            return 1;
+        }else{
+            return num+fun(num-1);
+        }
+    }
+})()
+
+console.log(sum(5));//15
+
+var sumAnother=sum;
+console.log(sumAnother(5));//15
+
+sum=null;
+console.log(sumAnother(5));//15
+        
+    </script>
+</head>
+<body>
+    <div class="block">
+        <button onclick="baoliyu(2)">抱鲤鱼</button>
+        <div id="liyuResult"></div>
+    </div>
+    
+    <div class="block">
+        <button onclick="baoliyuCallee(2)">抱鲤鱼callee</button>
+        <div id="liyuResultCallee"></div>
+    </div>
+
+    <div class="block">
+        <button onclick="baoliyu(2)">抱鲤鱼</button>
+        <div id="liyuResult"></div> 
+    </div>
+</body>
+</html>
