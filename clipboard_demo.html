@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>复制链接到剪切板</title>
+    <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+	<style>
+	li{
+		list-style:none;
+		margin-bottom:10px;
+	}
+	input,textarea{
+		margin-right:10px;
+	}
+	</style>
+</head>
+
+<body>
+ 
+<ul>
+<li>
+
+<textarea id="textarea1">复制链接【原生】</textarea>
+<input type="button" onClick="shareUrlJs()" value="复制链接【原生】" />
+<script type="text/javascript">
+function shareUrlJs(){
+	var t = document.getElementById("textarea1");
+	t.select(); // 选择对象
+	document.execCommand("Copy"); // 执行浏览器复制命令
+	alert("复制成功");
+}
+</script>
+
+</li>
+<li>
+
+<input id='input1' type="text" value="复制链接【JQuery】">
+<button id="copyUrl" onClick="shareUrlJQ()">复制链接【JQuery】</button>
+<script>
+function shareUrlJQ(){
+	$('#input1').select();
+	document.execCommand("Copy"); // 执行浏览器复制命令
+	alert("复制成功"); 
+}
+</script>
+
+</li>
+<li>
+
+<input type="button" onClick='shareUrlIE()' value="复制链接【IE】"> 
+<script language="javascript"> 
+function shareUrlIE(){ 
+    var clipBoardContent = location.href; 
+    window.clipboardData.setData("Text",clipBoardContent); 
+    alert("复制成功"); 
+} 
+</script> 
+  
+</li>
+<li>
+  
+<script src="https://cdn.bootcss.com/clipboard.js/2.0.1/clipboard.js"></script>
+<button class="btn" data-clipboard-text="复制链接【ClipboardJS】" onClick="shareUrlCli()">复制链接【ClipboardJS】</button>
+<script type="text/javascript">
+function shareUrlCli(){ 
+    new ClipboardJS('.btn');
+    alert("复制成功"); 
+}
+</script>
+
+</li>
+</ul>
+
+</body>
+</html>

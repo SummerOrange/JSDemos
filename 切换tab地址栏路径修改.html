@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>切换tab页，页面局部刷新，地址栏路径修改</title>
+<style>
+.search_bar {
+    height: 50px;
+    background: #fff;
+    box-shadow: 0 0 4px 0 rgba(0,0,0,0.05);
+    margin-bottom: 10px;
+    padding: 0 30px;
+}
+.search_bar .search_tab {
+    margin-right: 32px;
+    line-height: 48px;
+    cursor: pointer;
+    float: left;
+}
+.search_bar .search_tab.active {
+    border-bottom: 2px solid #EF4A4E;
+}
+.content{
+    width:300px;
+    height: 200px;
+}
+.contentA{
+    background: pink;
+}
+.contentB{
+    background: paleturquoise;
+}
+.hide{
+    display:none;
+}
+</style>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+    $(function(){
+        $('.search_bar .search_tab').click(function(){
+            $('.search_bar .search_tab').removeClass('active');
+            $(this).addClass('active');
+            if(this.id == 'tabB'){
+                $('.contentA').hide();
+                $('.contentB').show();  
+                window.history.replaceState(null,null,'./tabDemo.html?tab=tab_b');      
+            }else{
+                $('.contentA').show();
+                $('.contentB').hide(); 
+                window.history.replaceState(null,null,'./tabDemo.html?tab=tab_a');
+            }
+        });
+    });
+    
+    
+</script>
+</head>
+<body>
+	<h2>切换tab页，页面局部刷新，地址栏路径修改</h2>
+    <div>
+        <div class="search_bar hidden">
+            <div class="search_tab fl active" id="tabA">tabA</div>
+            <div class="search_tab fl" id="tabB">tabB</div>
+        </div>
+        <div class="content contentA"></div>
+        <div class="content contentB hide"></div>
+    </div>
+</body>
+</html>
