@@ -17,24 +17,20 @@
             for(var i=0;i<$block.length;i++){
                 $block[i].style.background = i%2==0?bg[0]:bg[1];
             }
-
-            var baoliyuMult = (function (){
-                'use strict'
-                return baoliyuFun();
-            })();
         }
         
-        var baoliyuFun = function baoliyu(depth){
+        function baoliyu(depth,type){
+            type = type?type:'liyuResult';
             console.log('抱着');
-            document.getElementById('liyuResult').innerHTML += '\n抱着';
+            document.getElementById(type).innerHTML += '\n抱着';
             if(!depth){
                 console.log('我的小鲤鱼');
-                document.getElementById('liyuResult').innerHTML += '\n我的小鲤鱼';
+                document.getElementById(type).innerHTML += '\n我的小鲤鱼';
             }else{
-                baoliyu(--depth);
+                baoliyu(--depth,type);
             }
             console.log('啦');
-            document.getElementById('liyuResult').innerHTML += '\n啦';
+            document.getElementById(type).innerHTML += '\n啦';
         }
 
         function baoliyuCallee(depth){
@@ -50,24 +46,32 @@
             document.getElementById('liyuResultCallee').innerHTML += '\n啦';
         }
 
-        
+        function baoliyuMult(dept){
+            return baoliyu(dept,'liyuResultMult');
+        }
 
-
-        var sum=(function(){
+console.log('start');
+        function sum(){
     'use strict'
-    return  function fun(num){
+    function fun(num){
+        console.log('num='+num);
         if(num<=1){
             return 1;
         }else{
             return num+fun(num-1);
         }
     }
-})()
+    return  fun;
+}
+console.log('sum5===');
 
-console.log(sum(5));//15
+console.log(sum()(5));//15
+console.log('sumAnother===');
+
 
 var sumAnother=sum;
 console.log(sumAnother(5));//15
+console.log('sumAnother===!!!!');
 
 sum=null;
 console.log(sumAnother(5));//15
@@ -86,8 +90,8 @@ console.log(sumAnother(5));//15
     </div>
 
     <div class="block">
-        <button onclick="baoliyu(2)">抱鲤鱼</button>
-        <div id="liyuResult"></div> 
+        <button onclick="baoliyuMult(2)">抱鲤鱼</button>
+        <div id="liyuResultMult"></div> 
     </div>
 </body>
 </html>
