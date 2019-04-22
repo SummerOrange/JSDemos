@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>递归</title>
+    <style>
+    .block{
+        padding: 10px;
+    }
+    </style>
+    <script>
+        window.onload = function(){
+            var bg = ['pink','#fff'];
+            var $block = document.getElementsByClassName('block');
+            for(var i=0;i<$block.length;i++){
+                $block[i].style.background = i%2==0?bg[0]:bg[1];
+            }
+        }
+        
+        function baoliyu(depth,type){
+            type = type?type:'liyuResult';
+            console.log('抱着');
+            document.getElementById(type).innerHTML += '\n抱着';
+            if(!depth){
+                console.log('我的小鲤鱼');
+                document.getElementById(type).innerHTML += '\n我的小鲤鱼';
+            }else{
+                baoliyu(--depth,type);
+            }
+            console.log('啦');
+            document.getElementById(type).innerHTML += '\n啦';
+        }
+
+        function baoliyuCallee(depth){
+            console.log('抱着');
+            document.getElementById('liyuResultCallee').innerHTML += '\n抱着';
+            if(!depth){
+                console.log('我的小鲤鱼');
+                document.getElementById('liyuResultCallee').innerHTML += '\n我的小鲤鱼';
+            }else{
+                arguments.callee(--depth);
+            }
+            console.log('啦');
+            document.getElementById('liyuResultCallee').innerHTML += '\n啦';
+        }
+
+        function baoliyuMult(dept){
+            return baoliyu(dept,'liyuResultMult');
+        }
+
+        // var baoliyuNew = baoliyu;
+        // baoliyu = null;
+
+        // var baoliyuNew = baoliyuCallee;
+        // baoliyuCallee = null;
+
+        // var baoliyuNew = baoliyuMult;
+        // baoliyuMult = null;
+
+        
+        // 斐波那契数列
+        function fibonacci(n){
+            if(n<=0){
+                return 0;
+            }
+            if(n<=2){
+                return 1;
+            }
+            return arguments.callee(n-1) + arguments.callee(n-2);
+        }
+        console.log('fibonacci(5)='+fibonacci(6));
+        
+        // 汉诺塔
+        function hanoi(n,from,ass,to){
+            if(n>0){
+                hanoi(n-1,from,to,ass);
+                console.log("移动第"+n+"个从"+from+"到"+to);
+                hanoi(n-1,ass,from,to);
+            }
+        }
+        hanoi(3,"A","B","C");
+
+        // 最大公约数【辗转相除】
+        function getGCD(a,b){
+            var c = a%b;
+            if(c!==0){
+                return arguments.callee(b,c);
+            }else{
+                return b;
+            }
+        }
+        console.log('getGCD(319,377)='+getGCD(319,377));
+        
+        
+    </script>
+</head>
+<body>
+    <div class="block">
+        <button onclick="baoliyu(2)">抱鲤鱼</button>
+        <div id="liyuResult"></div>
+    </div>
+    
+    <div class="block">
+        <button onclick="baoliyuCallee(2)">抱鲤鱼callee</button>
+        <div id="liyuResultCallee"></div>
+    </div>
+
+    <div class="block">
+        <button onclick="baoliyuMult(2)">抱鲤鱼Mult</button>
+        <div id="liyuResultMult"></div> 
+    </div>
+
+    <div class="block">
+        <button onclick="baoliyuNew(2)">抱鲤鱼New</button>
+    </div>
+</body>
+</html>
