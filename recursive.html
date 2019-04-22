@@ -50,31 +50,49 @@
             return baoliyu(dept,'liyuResultMult');
         }
 
-console.log('start');
-        function sum(){
-    'use strict'
-    function fun(num){
-        console.log('num='+num);
-        if(num<=1){
-            return 1;
-        }else{
-            return num+fun(num-1);
+        // var baoliyuNew = baoliyu;
+        // baoliyu = null;
+
+        // var baoliyuNew = baoliyuCallee;
+        // baoliyuCallee = null;
+
+        // var baoliyuNew = baoliyuMult;
+        // baoliyuMult = null;
+
+        
+        // 斐波那契数列
+        function fibonacci(n){
+            if(n<=0){
+                return 0;
+            }
+            if(n<=2){
+                return 1;
+            }
+            return arguments.callee(n-1) + arguments.callee(n-2);
         }
-    }
-    return  fun;
-}
-console.log('sum5===');
+        console.log('fibonacci(5)='+fibonacci(6));
+        
+        // 汉诺塔
+        function hanoi(n,from,ass,to){
+            if(n>0){
+                hanoi(n-1,from,to,ass);
+                console.log("移动第"+n+"个从"+from+"到"+to);
+                hanoi(n-1,ass,from,to);
+            }
+        }
+        hanoi(3,"A","B","C");
 
-console.log(sum()(5));//15
-console.log('sumAnother===');
-
-
-var sumAnother=sum;
-console.log(sumAnother(5));//15
-console.log('sumAnother===!!!!');
-
-sum=null;
-console.log(sumAnother(5));//15
+        // 最大公约数【辗转相除】
+        function getGCD(a,b){
+            var c = a%b;
+            if(c!==0){
+                return arguments.callee(b,c);
+            }else{
+                return b;
+            }
+        }
+        console.log('getGCD(319,377)='+getGCD(319,377));
+        
         
     </script>
 </head>
@@ -90,8 +108,12 @@ console.log(sumAnother(5));//15
     </div>
 
     <div class="block">
-        <button onclick="baoliyuMult(2)">抱鲤鱼</button>
+        <button onclick="baoliyuMult(2)">抱鲤鱼Mult</button>
         <div id="liyuResultMult"></div> 
+    </div>
+
+    <div class="block">
+        <button onclick="baoliyuNew(2)">抱鲤鱼New</button>
     </div>
 </body>
 </html>
