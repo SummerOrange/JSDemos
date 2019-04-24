@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>template_demo</title>
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <script src="template.js"></script>
+  <style>
+  .demo{
+    border-bottom: 3px solid pink;
+    padding: 10px;
+  }
+  </style>
+  <script>
+      $(function(){
+        // {{}}中的内容直接显示html片段
+        template.config("escape", false);
+
+        // demo1
+        var data1 = {'data':{'name':1}};//数据格式
+        var html1 = template('demo1Tpl', data1.data);
+        $('#demo1').html(html1);
+
+        // demo2
+        var data2 = {'data':[{'serviceName':'abc'},{'serviceName':'de'}]};//数据格式
+        var html2 = template('demo2Tpl', data2);
+        $('#demo2').html(html2);
+
+        // demo3
+        var data3 = {'data':[{'serviceName':1,'serviceTypes':[{'price':1},{'price':2}]},{'serviceName':2,'serviceTypes':[{'price':3},{'price':4}]}]};//数据格式
+        var html3 = template('demo3Tpl', data3);
+        $('#demo3 tbody').html(html3);
+
+        // demo4
+        template.helper('convertMoney',function(price){
+          return '¥'+price;
+        });
+        var data4 = {'val':{'price':999}};//数据格式
+        var html4 = template('demo4Tpl', data4);
+        $('#demo4').html(html4);
+
+        // demo5
+        template.helper('convertServiceType',function(serviceType,param1,param2){
+          return serviceType+':'+param1+','+param2;
+        });
+        var data5 = {'data':{'serviceType':'type'}};//数据格式
+        var html5 = template('demo5Tpl', data5.data);
+        $('#demo5').html(html5);
+
+        // demo6
+        var data6 = {'val':2};//数据格式
+        var html6 = template('demo6Tpl', data6.val);
+        $('#demo6').html(html6);
+        
+      });
+  </script>
+</head>
+<body>
+    <!-- 普通模板展示 -->
+    <div class="demo" id="demo1">
+        <script id="demo1Tpl" type="text/html">
+        名称：{{name}}
+        </script>
+    </div>
+
+    <!-- 循环数据 -->
+    <div class="demo" id="demo2">
+        <script id="demo2Tpl" type="text/html">
+          {{each data as val index}}
+          <p>{{index}} Name: {{val.serviceName}}</p>
+          {{/each}}
+        </script>
+    </div>
+
+    <!-- 多层嵌套循环数据 -->
+    <table class="demo" id="demo3">
+      <tbody></tbody>
+      <script  id="priceTpl" type="text/html">
+          {{each serviceTypes as val index}}
+          <p>¥ {{val.price}}</p>
+          {{/each}}
+      </script>
+      <script id="demo3Tpl" type="text/html">
+          {{each data as value index}}
+          <tr>
+            <td class="center">{{include 'priceTpl' value}}</td>
+          </tr>
+          {{/each}}
+      </script>
+    </table>
+
+    <!-- 使用管道过滤处理数据-单参数 -->
+    <div class="demo" id="demo4">
+        <script id="demo4Tpl" type="text/html">
+        {{val.price | convertMoney}}
+        </script>
+    </div>
+
+    <!-- 多参数 -->
+    <div class="demo" id="demo5">
+        <script id="demo5Tpl" type="text/html">
+        <p class="tit checkState">{{serviceType | convertServiceType:'a','b'}}</p>
+        </script>
+    </div>
+
+    <!-- if判断/if嵌套 -->
+    <div class="demo" id="demo6">
+      <script id="demo6Tpl" type="text/html">
+      {{if val == 1}}一级
+        {{else if val == 2}}二级
+        {{else}}三级
+      {{/if}}
+      </script>
+    </div>
+
+</body>
+</html>
