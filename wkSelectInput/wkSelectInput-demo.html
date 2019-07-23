@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>wkSelectInput demo & 使用文档</title>
+    <link href="./wkSelectInput.css" rel="stylesheet" />
+    <style>
+    .title{
+        color: rebeccapurple;
+        font-weight: 600;
+        margin-top: 20px;
+    }
+    .title .func{
+        color: black;
+        font-weight: 600;
+    }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="./wkSelectInput.js"></script>
+    <script>
+    $(function(){
+        var data = [
+            {'name':'a','id':'001',key:'one'},
+            {'name':'b','id':'002',key:'two'},
+            {'name':'c','id':'003',key:'three'},
+            {'name':'d','id':'004',key:'four'},
+            {'name':'e','id':'005',key:'five'}
+        ];
+        //初始化方法
+        var option = {
+            data:data,emptyTip: '暂无数据',placeholder:'请输入会员名称/手机号',width:'200px',height:'36px',type:2
+        };
+        $('#abc').initWkSelect(option);   
+        $('#abc').setDefaultInput({name:'wk'});
+        $('#abc').wkInputClick(function () {
+            data[0].name = 'wk';
+            var rec = data;
+            $('#abc').updateWkSelectList(rec,'暂无数据');
+        });
+        $('#abc').wkInputKeyup(function () {
+            data[0].name = 'z';
+            var rec = data;
+            if( $('#abc').getWkVal().length>5){
+                rec = [];
+            }
+            $('#abc').updateWkSelectList(rec,'暂无数据');
+        });                         
+    });
+    </script>
+</head>
+<body>
+    <div id="abc"></div>
+    <h3>wkSelectInput 使用说明文档</h3>
+    <p>基于jQuery的插件</p>
+    <p class="title">初始化方法：</p>
+    <p class="func">$('#abc').initWkSelect(option); </p>
+    <p> * @param data
+        * @param emptyTip
+        * @param placeholder
+        * @param width
+        * @param height
+        * @param type 1-选择后直接填充在输入框；2-选择后填充成标签形式
+        * @param inputCb
+        * @param readonly 针对type=1的属性，默认选择后可以修改，readonly=“readonly”时不可修改
+    </p>
+    <p></p>
+    <p class="title">更新下拉列表数据方法：</p>
+    <p class="func">$('#abc').updateWkSelectList(data,emptyTip,cb)</p>
+    <p>
+        * @param data 下拉里列表数据源 数组，格式：[{name:'',id:'',key:''}]
+        * @param emptyTip 下拉列表为空提示（默认值：暂无数据）
+    </p>
+    <p class="title">输入框设置默认选中值：</p>
+    <p class="func">setDefaultInput(data,type,readonly)</p>
+    <p>
+     * @param data 填充的数据，格式{name:'',id:'',key:''}
+     * @param type 1-直接显示在input框；2-在input中用标签展示
+     * @param readonly 针对type=1的属性，默认可以修改，readonly=“readonly”时不可修改
+    </p>
+    <p class="title">获取已选择的数据的name值：</p>
+    <p class="func">getWkVal()</p>
+    <p class="title">获取已选择的数据的Value值：</p>
+    <p class="func">getWkId()</p>
+    <p class="title">获取已选择的数据的key值：</p>
+    <p class="func">getWkKey()</p>
+    <p class="title">是否选择了下拉列表；true-已选择；false-未选择；：</p>
+    <p class="func">isChooseWkItem</p>
+    <p class="title">输入框点击事件：</p>
+    <p class="func">wkInputClick(cb)</p>
+    <p>
+        @param cb 回调
+    </p>
+    <p class="title">输入框keyup事件：</p>
+    <p class="func">wkInputKeyup(cb)</p>
+    <p class="title">输入框点击和keyup综合事件：</p>
+    <p class="func">wkInputClickMul(cb)</p>
+    <p class="title">选择下拉框点击事件：</p>
+    <p class="func">wkSelectClick(cb)</p>
+    <p class="title">type==2时选中的标签关闭取消点击事件：</p>
+    <p class="func">wkLabelClose(cb)</p>
+</body>
+</html>

@@ -1,0 +1,5 @@
+/**
+ * 更新日期：2019年07月23日
+ * author：bigOrange
+ */
+.wkSelectBox .hide{display:none}.wkSelectBox{position:relative;display:inline-block}.wkSelectBox .wkSelectInput{font-size:14px;height:34px;line-height:34px;padding:0 6px}.wkSelectBox .wkSelectList{background:#fff;z-index:99;position:absolute;border:1px solid #ddd;border-bottom-left-radius:2px;border-bottom-right-radius:2px;border-top:0;-webkit-box-shadow:4px 4px 5px 0 rgba(0,0,0,0.07);-moz-box-shadow:4px 4px 5px 0 rgba(0,0,0,0.07);box-shadow:4px 4px 5px 0 rgba(0,0,0,0.07);width:100px;top:34px;box-sizing:border-box;overflow-y:auto;max-height:180px;padding:5px 0;margin:0;font-size:14px}.wkSelectList li{padding:5px 10px;cursor:pointer;line-height:1.3}.wkSelectList li.wkEmpty{color:#999;cursor:initial}.wkSelectBox .wkSelectLabel{position:absolute;top:6px;left:5px}.wkSelectBox .wkSelectLabelBg{background:#f5a623;padding:0 8px;box-sizing:border-box;border-radius:12px;color:#fff;height:24px;line-height:24px;font-size:14px}.wkSelectBox .wkSelectLabelClose{padding-left:5px;cursor:pointer;vertical-align:top}.wkSelectBox .text-nowrap{white-space:nowrap;text-overflow:ellipsis;overflow:hidden}
