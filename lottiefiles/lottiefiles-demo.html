@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script type="text/javascript" src="./13454-pushing-2020.json"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.4.3/lottie.min.js"></script>
+    <title>lottie</title>
+    <style>
+        body{
+            margin: 0px;
+            height: 100%;
+            overflow: hidden;
+        }
+        #lottie{
+            width:100%;
+            height:100%;
+            display:block;
+            overflow: hidden;
+            transform: translate3d(0,0,0);
+            text-align: center;
+            opacity: 1;
+        }
+    </style>
+    <script>
+        window.onload = function() {
+            var params = {
+                container: document.getElementById('lottie'),
+                renderer: 'svg',
+                loop: true,
+                autoplay: true,
+                animationData: animationData
+            };
+            
+            var animation;
+            
+            animation = lottie.loadAnimation(params);
+        }
+    </script>
+</head>
+<body>
+    <div id="lottie"></div>
+</body>
+</html>
